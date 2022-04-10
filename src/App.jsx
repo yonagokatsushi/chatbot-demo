@@ -2,7 +2,7 @@ import React from 'react';
 import './assets/styles/style.css';
 import defaultDataset from './dataset.js';
 
-import {AnswersList , Chats} from './components/index'
+import {AnswersList , Chats , AlertDialog} from './components/index'
 
 // import logo from './logo.svg';
 // import './App.css';
@@ -17,10 +17,28 @@ export default class App extends React.Component {
       chats: [],
       currentId: "init",
       dataset: defaultDataset,
-      open: false
+      open: true
     }
     this.selectAnswer = this.selectAnswer.bind(this);
+    this.handleClickOpen = this.handleClickOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this)
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   displayNextQuestionID = (nextQuestionID) => {
     const chats = this.state.chats;
@@ -35,15 +53,6 @@ export default class App extends React.Component {
       currentId: nextQuestionID
     })
   }
-
-
-
-
-
-
-
-
-
   selectAnswer = (selectedAnswer , nextQuestionID) => {
 
 
@@ -97,6 +106,14 @@ export default class App extends React.Component {
   //   })
   // }
 
+  handleClickOpen = () => {
+    this.setState({open: true});
+  };
+
+  handleClose = () => {
+    this.setState({open: false});
+  };
+
 
 
   componentDidMount() {
@@ -117,10 +134,11 @@ export default class App extends React.Component {
 
       <section className='c-section'>
 
-
         <div className='c-box'>
+
           <Chats chats={this.state.chats} />
           <AnswersList answers={this.state.answers} select={this.selectAnswer} />
+          <AlertDialog open={this.state.open} handleOpen={this.handleOpen} handleClose={this.handleClose} />
         </div>
       </section>
 
