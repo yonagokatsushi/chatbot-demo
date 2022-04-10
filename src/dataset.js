@@ -4,7 +4,7 @@ const defaultDataset = {
             {content: "仕事を依頼したい", nextId: "job_offer"},
             {content: "エンジニアのキャリアについて相談したい", nextId: "consultant"},
             {content: "学習コミュニティについて知りたい", nextId: "community"},
-            {content: "お付き合いしたい", nextId: "dating"},
+            // {content: "", nextId: "dating"},
         ],
         question: "こんにちは！🐯トラハックへのご用件はなんでしょうか？",
     },
@@ -69,13 +69,13 @@ const defaultDataset = {
         ],
         question: "フロントエンド向けの教材の提供、キャリアや勉強法に関するメルマガの配信、週1のオンライン作業会などを開催しています！\n詳細はYouTube動画で紹介しています。",
     },
-    "dating": {
-        answers: [
-            {content: "DMする", nextId: "https://twitter.com/torahack_"},
-            {content: "最初の質問に戻る", nextId: "init"}
-        ],
-        question: "まずは一緒にランチでもいかがですか？DMしてください😘",
-    },
+    // "dating": {
+    //     answers: [
+    //         {content: "DMする", nextId: "https://twitter.com/torahack_"},
+    //         {content: "最初の質問に戻る", nextId: "init"}
+    //     ],
+    //     question: "",
+    // },
 }
 
 export default defaultDataset

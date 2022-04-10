@@ -17,7 +17,7 @@ export default class App extends React.Component {
       chats: [],
       currentId: "init",
       dataset: defaultDataset,
-      open: true
+      open: false
     }
     this.selectAnswer = this.selectAnswer.bind(this);
     this.handleClickOpen = this.handleClickOpen.bind(this);
@@ -61,25 +61,29 @@ export default class App extends React.Component {
         this.displayNextQuestionID(nextQuestionID);
         break;
 
-        case (/^https:*/.test(nextQuestionID)):
-          const a = document.createElement('a');
-          a.href = nextQuestionID;
-          a.target = '_blank';
-          a.click();
-          break;
-  
-        default: 
-        const chats = this.state.chats;
-        chats.push({
-          text: selectedAnswer,
-          type: 'answers'
-        });
-        this.setState({
-          chats: chats
-        })
-
-        setTimeout(() => {this.displayNextQuestionID(nextQuestionID)} , 500);
+      case (/^https:*/.test(nextQuestionID)):
+        const a = document.createElement('a');
+        a.href = nextQuestionID;
+        a.target = '_blank';
+        a.click();
         break;
+
+      case (nextQuestionID === 'contact'):
+        this.handleClickOpen();
+        break;
+  
+      default: 
+      const chats = this.state.chats;
+      chats.push({
+        text: selectedAnswer,
+        type: 'answers'
+      });
+      this.setState({
+        chats: chats
+      })
+
+      setTimeout(() => {this.displayNextQuestionID(nextQuestionID)} , 500);
+      break;
     }
 
   }

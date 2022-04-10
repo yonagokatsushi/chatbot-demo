@@ -11,7 +11,7 @@ import NoProfiles from '../assets/img/no-profile.png';
 import Torahack from '../assets/img/torahack.png';
 
 const Chat = (props) => {
-  console.log(props);
+  // console.log(props);
   const IsQuestion = (props.type === "question");
   const classes = IsQuestion?'p-chat__row':'p-chat__reverse';
     return (
