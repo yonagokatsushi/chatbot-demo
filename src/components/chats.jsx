@@ -7,13 +7,13 @@ import List from '@mui/material/List';
 // import Avatar from '@mui/material/Avatar';
 // import Typography from '@mui/material/Typography';
 
-
+import Stack from '@mui/material/styles';
 import {Chat} from './index';
 
 const Chats = (props) => {
     
       return (
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper',height: "400px",padding: "0",overflow: "auto"}} id='sca'>
 
 
 
