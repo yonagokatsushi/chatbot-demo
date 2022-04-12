@@ -31,8 +31,8 @@ export default class formDialog extends React.Component {
 
   inputDiscription = (event) => {
     this.setState({discription: event.target.value});
-  }
 
+  }
 
 
 
@@ -65,11 +65,12 @@ export default class formDialog extends React.Component {
       method: 'POST',
       body: JSON.stringify(payload)
     }).then(() => {
-      alert('送付');
-      this.setState = ({
+      alert('送付完');
+      this.setState({
         discription: ""
 
       });
+      // alert(this.state.discription);
       return this.props.handleClose();
     })
   }

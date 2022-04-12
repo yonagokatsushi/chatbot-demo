@@ -49,9 +49,9 @@ export default class App extends React.Component {
     this.setState({
       answers: this.state.dataset[nextQuestionID].answers, 
       chats: chats, 
-
       currentId: nextQuestionID
     })
+
   }
   selectAnswer = (selectedAnswer , nextQuestionID) => {
 
