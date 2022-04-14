@@ -126,30 +126,35 @@ export default class App extends React.Component {
   componentDidMount() {
     (async() => {
       const dataset = this.state.dataset;
+      const q = query(collection(db, "question"));
+      const unsubscribe = await onSnapshot(q, (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const id = doc.id
+          const data = doc.data()
+          dataset[id] = data
+        });
 
-      // await db.colletion('question').get().then(snapshots => {
-      //   console.log(snapshots);
-      //   snapshots.forEach(doc => {
-      //     const id = doc.id
-      //     const data = doc.data()
-      //     dataset[id] = data
-      //   });
-      // });
+        console.log(dataset);
 
-      const docRef = query(doc(db, "question"))
-      const docSnap = await getDoc(docRef);
       
-      if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
+      // const docRef = query(doc(db, "question", "init"))
+      // const docSnap = await getDoc(docRef);
+      
+      // if (docSnap.exists()) {
+      //   console.log("Document data:", docSnap.data());
+      // } else {
+      //   // doc.data() will be undefined in this case
+      //   console.log("No such document!");
+      // }
     
-      this.initDataset(dataset);
-      const initAnswer = '';
-      this.selectAnswer(initAnswer , this.state.currentId);
+        this.initDataset(dataset);
+        const initAnswer = '';
+        this.selectAnswer(initAnswer , this.state.currentId);
+      });
+
     })();
+
+
   }
 
   componentDidUpdate() {
