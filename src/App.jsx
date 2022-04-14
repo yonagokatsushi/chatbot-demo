@@ -1,12 +1,14 @@
 import React from 'react';
 import './assets/styles/style.css';
-import defaultDataset from './dataset.js';
+// import defaultDataset from './dataset.json';
 
 import {AnswersList , Chats , AlertDialog} from './components/index'
-
+import {db} from './firebase/index';
 // import logo from './logo.svg';
 // import './App.css';
 
+import database from './firebase';
+import { doc, getDoc, setDoc, onSnapshot, collection, query, where } from "firebase/firestore";
 
 export default class App extends React.Component {
 
@@ -16,15 +18,13 @@ export default class App extends React.Component {
       answers: [],
       chats: [],
       currentId: "init",
-      dataset: defaultDataset,
+      dataset: [],
       open: false
     }
     this.selectAnswer = this.selectAnswer.bind(this);
     this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleClose = this.handleClose.bind(this)
   }
-
-
 
 
 
@@ -118,11 +118,38 @@ export default class App extends React.Component {
     this.setState({open: false});
   };
 
+  initDataset = (dataset) => {
+    this.setState({dataset: dataset});
+  }
 
 
   componentDidMount() {
-    const initAnswer = '';
-    this.selectAnswer(initAnswer , 'init');
+    (async() => {
+      const dataset = this.state.dataset;
+
+      // await db.colletion('question').get().then(snapshots => {
+      //   console.log(snapshots);
+      //   snapshots.forEach(doc => {
+      //     const id = doc.id
+      //     const data = doc.data()
+      //     dataset[id] = data
+      //   });
+      // });
+
+      const docRef = query(doc(db, "question"))
+      const docSnap = await getDoc(docRef);
+      
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    
+      this.initDataset(dataset);
+      const initAnswer = '';
+      this.selectAnswer(initAnswer , this.state.currentId);
+    })();
   }
 
   componentDidUpdate() {
@@ -131,7 +158,6 @@ export default class App extends React.Component {
       scrollArea.scrollTop = scrollArea.scrollHeight;
     }
   }
-
 
   render() {
     return (
