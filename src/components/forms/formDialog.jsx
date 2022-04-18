@@ -7,9 +7,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 // import { TextField } from '@mui/material';
 import TextInput from './textInput'
-
+import {db} from '../../firebase/index';
+import { doc, getDoc, setDoc, onSnapshot, collection, query, where } from "firebase/firestore";
 const FormDialog = (props) => {
-
   const [name, setName] = useState("");
   const [email , setEmail] = useState("");
   const [discription , setDiscription] = useState("");
@@ -67,16 +67,25 @@ const FormDialog = (props) => {
       method: 'POST',
       body: JSON.stringify(payload)
     }).then(() => {
-      alert('送付完');
+
 
       setDiscription("");
-
-
       // alert(this.state.discription);
+      (async () => {
+        const _kaisuu = await getDoc(doc(db, "question", "data"));
+
+
+
+
+        const input_kaisuu = _kaisuu.data().kaisuu + 1; console.log(input_kaisuu);
+        await setDoc(doc(db, "question", "data"), {
+          kaisuu: input_kaisuu,
+        });
+
+        alert('送付完(' + input_kaisuu + '回目のお問い合わせ)'); })()
       return props.handleClose();
     })
   }
-
   // handleClickOpen = () => {
   //   this.setState({open: true});
   // };

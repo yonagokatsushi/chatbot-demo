@@ -53,7 +53,7 @@ const App = () => {
     setAnswers(nextDataset.answers) 
 
     setCurrentId(nextQuestionID)
-    grid__answer.classList.remove("js-wait");
+    if (document.getElementById("root").getElementsByClassName("c-grid__answer")[0].classList.contains("js-wait")) { grid__answer.classList.remove("js-wait"); }
   }
   const grid__answer = document.getElementById("root").getElementsByClassName("c-grid__answer")[0];
   const selectAnswer = (selectedAnswer , nextQuestionID) => {
@@ -147,7 +147,7 @@ const App = () => {
           initDataset[id] = data
         });
 
-        console.log(initDataset);
+        // console.log(initDataset);
 
       
       // const docRef = query(doc(db, "question", "init"))
