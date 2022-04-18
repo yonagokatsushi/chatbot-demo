@@ -43,51 +43,51 @@ const App = () => {
 
 
 
-
   const displayNextQuestion = (nextQuestionID , nextDataset) => {
-
-
     addChats({
+
+
       text: nextDataset.question, 
       type: 'question'
     });
-
     setAnswers(nextDataset.answers) 
+
     setCurrentId(nextQuestionID)
-
-
+    grid__answer.classList.remove("js-wait");
   }
+  const grid__answer = document.getElementById("root").getElementsByClassName("c-grid__answer")[0];
   const selectAnswer = (selectedAnswer , nextQuestionID) => {
+    const hasClass = grid__answer.classList.contains("js-wait");
+    if (!hasClass) {
+      grid__answer.classList.add("js-wait");
+      switch(true) {
+        // case (nextQuestionID === 'init'):
+        //   displayNextQuestion(nextQuestionID);
+        //   break;
 
+        case (/^https:*/.test(nextQuestionID)):
+          const a = document.createElement('a');
+          a.href = nextQuestionID;
+          a.target = '_blank';
+          a.click(); grid__answer.classList.remove("js-wait");
+          break;
 
-    switch(true) {
-      // case (nextQuestionID === 'init'):
-      //   displayNextQuestion(nextQuestionID);
-      //   break;
+        case (nextQuestionID === 'contact'):
+          handleClickOpen(); grid__answer.classList.remove("js-wait");
+          break;
+    
+        default: 
+        // const chats = state.chats;
+        addChats({
+          text: selectedAnswer,
+          type: 'answers'
+        });
 
-      case (/^https:*/.test(nextQuestionID)):
-        const a = document.createElement('a');
-        a.href = nextQuestionID;
-        a.target = '_blank';
-        a.click();
+        setTimeout(() => {displayNextQuestion(nextQuestionID , dataset[nextQuestionID])} , 500);
         break;
-
-      case (nextQuestionID === 'contact'):
-        handleClickOpen();
-        break;
-  
-      default: 
-      // const chats = state.chats;
-      addChats({
-        text: selectedAnswer,
-        type: 'answers'
-      });
-
-      setTimeout(() => {displayNextQuestion(nextQuestionID , dataset[nextQuestionID])} , 500);
-      break;
+      }
 
     }
-
   }
 
 
@@ -119,7 +119,6 @@ const App = () => {
   //   chats.push(chat);
   //   this.setState({
   //     chats: chats
-
   //   })
   // }
 
