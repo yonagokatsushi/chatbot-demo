@@ -1,37 +1,39 @@
-import * as React from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
+// import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { TextField } from '@mui/material';
+// import { TextField } from '@mui/material';
 import TextInput from './textInput'
 
-export default class formDialog extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: "",
-      email: "",
-      discription: ""
-    }
-    this.inputName = this.inputName.bind(this);
-    this.inputEmail = this.inputEmail.bind(this);
-    this.inputDiscription = this.inputDiscription.bind(this);
+const FormDialog = (props) => {
+
+  const [name, setName] = useState("");
+  const [email , setEmail] = useState("");
+  const [discription , setDiscription] = useState("");
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     name: "",
+  //     email: "",
+  //     discription: ""
+  //   }
+  //   this.inputName = this.inputName.bind(this);
+  //   this.inputEmail = this.inputEmail.bind(this);
+  //   this.inputDiscription = this.inputDiscription.bind(this);
+  // }
+  const inputName = (event) => {
+    setName(event.target.value);
   }
 
-  inputName = (event) => {
-    this.setState({name: event.target.value});
+  const inputEmail = (event) => {
+    setEmail(event.target.value);
   }
 
-  inputEmail = (event) => {
-    this.setState({email: event.target.value});
-  }
-
-  inputDiscription = (event) => {
-    this.setState({discription: event.target.value});
-
+  const inputDiscription = (event) => {
+    setDiscription(event.target.value);
   }
 
 
@@ -47,10 +49,10 @@ export default class formDialog extends React.Component {
 
 
 
-  submitForm = () => {
-    const name = this.state.name;
-    const email = this.state.email;
-    const discription = this.state.discription;
+  const submitForm = () => {
+    // const name = this.state.name;
+    // const email = this.state.email;
+    // const discription = this.state.discription;
 
     const payload = {
       text: 'PPP\n' + 
@@ -66,12 +68,12 @@ export default class formDialog extends React.Component {
       body: JSON.stringify(payload)
     }).then(() => {
       alert('送付完');
-      this.setState({
-        discription: ""
 
-      });
+      setDiscription("");
+
+
       // alert(this.state.discription);
-      return this.props.handleClose();
+      return props.handleClose();
     })
   }
 
@@ -83,39 +85,42 @@ export default class formDialog extends React.Component {
   //   this.setState({open: false});alert();
   // };
 
-  render() {
+  // render() {
 
     return (
       <div>
+
         {/* <Button variant="outlined" onClick={this.handleClickOpen}>
           Open alert dialog
         </Button> */}
         <Dialog
-          open={this.props.open}
-          onClose={this.props.handleClose}
+          open={props.open}
+          onClose={props.handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">お問い合わせフォーム</DialogTitle>
           <DialogContent>
             <TextInput
-              label={"なまえ"} multiline={false} type={"text"} rows={1} value={this.state.name} onChange={this.inputName}
+              label="なまえ" multiline={false} type="text" rows={1} value={name} onChange={inputName}
              />
             <TextInput
-              label="メール" multiline={false} type="email" rows={1} value={this.state.email} onChange={this.inputEmail}
+              label="メール" multiline={false} type="email" rows={1} value={email} onChange={inputEmail}
              />
             <TextInput
-              label="ないよ" multiline={true} type="text" rows={5} value={this.state.discription} onChange={this.inputDiscription}
+              label="ないよ" multiline={true} type="text" rows={5} value={discription} onChange={inputDiscription}
              />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.props.handleClose}>やめやめ</Button>
-            <Button onClick={this.submitForm}>
+            <Button onClick={props.handleClose}>やめやめ</Button>
+            <Button onClick={submitForm}>
               おくる
             </Button>
           </DialogActions>
         </Dialog>
       </div>
     );
-  }
+  // }
 }
+
+export default FormDialog;

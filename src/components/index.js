@@ -7,4 +7,4 @@ export {default as Chats} from './chats'
 export {default as Chat} from './chat'
 
 
-export {default as AlertDialog} from './forms/formDialog'
+export {default as FormDialog} from './forms/formDialog'

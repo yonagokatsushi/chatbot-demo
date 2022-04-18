@@ -2,12 +2,12 @@ import React, {useState, useCallback, useEffect} from 'react';
 import './assets/styles/style.css';
 // import defaultDataset from './dataset.json';
 
-import {AnswersList , Chats , AlertDialog} from './components/index'
+import {AnswersList , Chats , FormDialog} from './components/index'
 import {db} from './firebase/index';
 // import logo from './logo.svg';
 // import './App.css';
 
-import database from './firebase';
+// import database from './firebase';
 import { doc, getDoc, setDoc, onSnapshot, collection, query, where } from "firebase/firestore";
 
 const App = () => {
@@ -186,7 +186,7 @@ const App = () => {
 
           <Chats chats={chats} />
           <AnswersList answers={answers} select={selectAnswer} />
-          <AlertDialog open={open} handleOpen={handleClickOpen} handleClose={handleClose} />
+          <FormDialog open={open} handleOpen={handleClickOpen} handleClose={handleClose} />
         </div>
       </section>
 
